@@ -1,0 +1,17 @@
+
+docker pull postgres
+docker images
+docker run --name postgresql -e POSTGRES_USER=sa -e POSTGRES_PASSWORD=3409 -p 9001:5432 -d postgres
+docker run --name postgresql -e POSTGRES_USER=sa -e POSTGRES_PASSWORD=3409 -p 9001:5432 -v /data:/var/lib/postgresql/data -d postgres
+
+
+
+
+
+docker run --name postgres -e POSTGRES_USER=sa -e POSTGRES_PASSWORD=3409 -p 9001:5432 -d postgres
+node_modules/.bin/knex migrate:make create_table_users --env test
+node_modules/.bin/knex migrate:latest --env test
+
+docker run --name postgres -p 9001:5432 --network=bridge -v "\\wsl$\docker-desktop-data\version-packdata\community\docker\volumes" -e POSTGRES_USER=sa -e POSTGRES_PASSWORD=3409 -d postgres
+
+
