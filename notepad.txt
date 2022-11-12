@@ -14,4 +14,7 @@ node_modules/.bin/knex migrate:latest --env test
 
 docker run --name postgres -p 9001:5432 --network=bridge -v "\\wsl$\docker-desktop-data\version-packdata\community\docker\volumes" -e POSTGRES_USER=sa -e POSTGRES_PASSWORD=3409 -d postgres
 
+node_modules/.bin/knex migrate:make create_table_accounts --env test
 
+
+node_modules/.bin/knex migrate:latest --env test
