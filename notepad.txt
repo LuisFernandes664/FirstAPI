@@ -19,3 +19,6 @@ node_modules/.bin/knex migrate:make create_table_accounts --env test
 
 node_modules/.bin/knex migrate:latest --env test
 
+
+git remote add origin https://github.com/LuisFernandes664/FirstAPI.git
+
