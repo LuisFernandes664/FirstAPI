@@ -52,12 +52,12 @@ test('Test #10 - Alterar uma conta', () => {
     });
 });
 
-// test('Test #11 - Remover conta', () => {
-//   return app.db('accounts')
-//     .insert({ name: 'Account - Remove', user_id: user.id }, ['id'])
-//     .then((acc) => request(app).delete(`${MAIN_ROUTE}/${acc[0].id}`)
-//       .send({ name: 'Account updated' }))
-//     .then((res) => {
-//       expect(res.status).toBe(204);
-//     });
-// });
+test('Test #11 - Remover conta', () => {
+  return app.db('accounts')
+    .insert({ name: 'Account - Remove', user_id: user.id }, ['id'])
+    .then((acc) => request(app).delete(`${MAIN_ROUTE}/${acc[0].id}`)
+      .send({ name: 'Account updated' }))
+    .then((res) => {
+      expect(res.status).toBe(204);
+    });
+});

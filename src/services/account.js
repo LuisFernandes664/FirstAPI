@@ -1,5 +1,3 @@
-const accounts = require('../routes/accounts');
-
 module.exports = (app) => {
   const save = (account) => {
     return app.db('accounts')
@@ -17,7 +15,7 @@ module.exports = (app) => {
   };
 
   const update = (id, account) => {
-    return app.db(accounts)
+    return app.db('accounts')
       .where({ id })
       .update(account, '*');
   };
