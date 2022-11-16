@@ -1,3 +1,5 @@
+const ValidationError = require('../errors/validationError');
+
 module.exports = (app) => {
   // ao chamar esta função passa o parametro que quer que procure senão coloca a vazio
   const findAll = (filter = {}) => {
@@ -5,12 +7,12 @@ module.exports = (app) => {
   };
 
   const save = async (user) => {
-    if (!user.name) return { error: 'Nome é um atributo obrigatório' };
-    if (!user.email) return { error: 'O email é um atributo obrigatório' };
-    if (!user.password) return { error: 'A password é um atributo obrigatório' };
+    if (!user.name) throw new ValidationError('Nome é um atributo obrigatório');
+    if (!user.email) throw new ValidationError('O email é um atributo obrigatório');
+    if (!user.password) throw new ValidationError('A password é um atributo obrigatório');
 
     const userDb = await findAll({ email: user.email });
-    if (userDb && userDb.length > 0) return { error: 'Email duplicado na BD' };
+    if (userDb && userDb.length > 0) throw new ValidationError('Email duplicado na BD');
     return app.db('users').insert(user, '*');
   };
 

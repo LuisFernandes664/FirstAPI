@@ -10,7 +10,7 @@
     "start": "node src/server.js",
     "test": "jest",
     "lint": "eslint src/** test/** --fix",
-    "secure-mode": "jest --watchALL"
+    "secure-mode": "jest --watchAll"
   },
   "author": "",
   "license": "ISC",

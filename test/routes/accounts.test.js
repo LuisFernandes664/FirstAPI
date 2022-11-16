@@ -61,3 +61,12 @@ test('Test #11 - Remover conta', () => {
       expect(res.status).toBe(204);
     });
 });
+
+test('Test #12 - Inserir conta sem nome', () => {
+  return request(app).post(MAIN_ROUTE)
+    .send({ user_id: user.id })
+    .then((res) => {
+      expect(res.status).toBe(400);
+      expect(res.body.error).toBe('Nome é um atributo obrigatório');
+    });
+});

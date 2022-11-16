@@ -1,7 +1,9 @@
+const ValidationError = require('../errors/validationError');
+
 module.exports = (app) => {
-  const save = (account) => {
-    return app.db('accounts')
-      .insert(account, '*');
+  const save = async (account) => {
+    if (!account.name) throw new ValidationError('Nome é um atributo obrigatório');
+    return app.db('accounts').insert(account, '*');
   };
 
   const findAll = () => {
