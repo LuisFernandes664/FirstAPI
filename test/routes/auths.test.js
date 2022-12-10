@@ -4,54 +4,54 @@ const app = require('../../src/app');
 
 const mail = `${Date.now()}@ipca.pt`;
 
-test('Test #13 - Receber token ao autenticar', () => {
+test('Teste #1 - Autenticar: receber token', () => {
   return app.services.user.save(
-    { name: 'Luis Auth', email: mail, password: '12345' },
-  ).then(() => request(app).post('/auth/signin')
-    .send({ email: mail, password: '12345' }))
+    { name: 'Luis Auth', email: mail, password: '123456' },
+  ).then(() => request(app).post('/auths/signin')
+    .send({ email: mail, password: '123456' }))
     .then((res) => {
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('token');
     });
 });
 
-test('Test #14 - Tentativa de autenticação errada', () => {
+test('Teste #2 - Autenticar: falha no processo', () => {
   const nmail = `${Date.now()}@ipca.pt`;
   return app.services.user.save(
-    { name: 'Luis Auth', email: nmail, password: '12345' },
-  ).then(() => request(app).post('/auth/signin')
-    .send({ email: nmail, password: '67890' }))
+    { name: 'Luis Auth Fail', email: nmail, password: '123456789' },
+  ).then(() => request(app).post('/auths/signin')
+    .send({ email: nmail, password: '12345' }))
     .then((res) => {
       expect(res.status).toBe(400);
-      expect(res.body.error).toBe('Autenticação inválida!');
+      expect(res.body.error).toBe('Autenticação inválida! #1');
     });
 });
 
-test('Test #15 - Tentativa de autenticação com utilizador errado', () => {
+test('Teste #3 - Autenticar: utilizador errado', () => {
   const nmail = `${Date.now()}@ipca.pt`;
-  return request(app).post('/auth/signin')
-    .send({ email: nmail, password: '67890' })
+  return request(app).post('/auths/signin')
+    .send({ email: nmail, password: '12345' })
     .then((res) => {
       expect(res.status).toBe(400);
       expect(res.body.error).toBe('Autenticação inválida! #2');
     });
 });
 
-test('Test #16 - Aceder a rotas protegidas', () => {
-  return request(app).get('/users')
-    .then((res) => {
-      expect(res.status).toBe(401);
-    });
-});
-
-test('Test #17 - Criar utilizador', () => {
+test('Teste #4 - Criar utilizador', () => {
   const nmail = `${Date.now()}@ipca.pt`;
-  return request(app).post('/auth/signup')
-    .send({ name: 'Luis Signup', email: nmail, password: '12345' })
+  return request(app).post('/auths/signup')
+    .send({ name: 'Luis Signup', email: nmail, password: 'signup' })
     .then((res) => {
       expect(res.status).toBe(201);
       expect(res.body.name).toBe('Luis Signup');
       expect(res.body).toHaveProperty('email');
       expect(res.body).not.toHaveProperty('password');
+    });
+});
+
+test('Test #16 - Aceder a rotas protegidas', () => {
+  return request(app).get('/v1/users')
+    .then((res) => {
+      expect(res.status).toBe(401);
     });
 });

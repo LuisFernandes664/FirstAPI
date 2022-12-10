@@ -10,7 +10,10 @@ module.exports = {
     },
     debug: true,
     migrations: {
-      directory: 'src/migrations',
+      directory: 'src/migrations/test',
+    },
+    seeds: {
+      directory: 'src/seed/test',
     },
     pool: {
       min: 0,
@@ -30,6 +33,9 @@ module.exports = {
     debug: true,
     migrations: {
       directory: 'src/migrations',
+    },
+    seeds: {
+      directory: 'src/seed/test',
     },
     pool: {
       min: 0,

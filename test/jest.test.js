@@ -1,4 +1,4 @@
-test('Testar se o Jest Funciona', () => {
+test('Testar se o JEST funciona!', () => {
   let number = null;
   expect(number).toBeNull();
   number = 10;
@@ -10,12 +10,12 @@ test('Testar se o Jest Funciona', () => {
 });
 
 test('Testes com objetos', () => {
-  const obj = { name: 'Luis Fernandes', mail: 'luis.fernandes@wave.pt' };
+  const obj = { name: 'Luis Fernandes', mail: 'pesousa@ipca.pt' };
   expect(obj).toHaveProperty('name');
   expect(obj).toHaveProperty('name', 'Luis Fernandes');
   expect(obj.name).toBe('Luis Fernandes');
 
-  const obj2 = { name: 'Luis Fernandes', mail: 'luis.fernandes@wave.pt' };
+  const obj2 = { name: 'Luis Fernandes', mail: 'pesousa@ipca.pt' };
   expect(obj).toEqual(obj2);
   // expect(obj).toBe(obj2);
 });
