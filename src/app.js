@@ -10,18 +10,19 @@ app.db = knex(knexfile.test);
 consign({ cwd: 'src', verbose: false })
   .include('./config/passport.js')
   .include('./config/middlewares.js')
-  .then('./services')
-  .then('./routes')
-  .then('./config/routers.js')
+  .include('./services')
+  .include('./routes')
+  .include('./config/router.js')
   .into(app);
 
 app.get('/', (req, res) => {
-  res.status(200).send();
+  res.status(200).send('Olá!');
 });
 
 app.use((err, req, res, next) => {
   const { name, message, stack } = err;
   if (name === 'validationError') res.status(400).json({ error: message });
+  if (name === 'forbiddenError') res.status(403).json({ error: message });
   else res.status(500).json({ name, message, stack });
   next(err);
 });

@@ -2,9 +2,10 @@ const bcrypt = require('bcrypt-nodejs');
 const ValidationError = require('../errors/validationError');
 
 module.exports = (app) => {
-  // ao chamar esta função passa o parametro que quer que procure senão coloca a vazio
-  const findAll = (filter = {}) => {
-    return app.db('users').where(filter).select(['id', 'email', 'name']);
+  const findAll = async (filter = {}) => {
+    const dummyUser = await app.db('users').where({ email: 'dummy@ipca.pt' }).select(['id', 'name', 'email']);
+    if (dummyUser && dummyUser.length > 0) throw new ValidationError('Dummy User');
+    return app.db('users').where(filter).select(['id', 'name', 'email']);
   };
 
   const findOne = (filter = {}) => {
@@ -17,7 +18,7 @@ module.exports = (app) => {
   };
 
   const save = async (user) => {
-    if (!user.name) throw new ValidationError('Nome é um atributo obrigatório');
+    if (!user.name) throw new ValidationError('O nome é um atributo obrigatório');
     if (!user.email) throw new ValidationError('O email é um atributo obrigatório');
     if (!user.password) throw new ValidationError('A password é um atributo obrigatório');
 
@@ -26,7 +27,7 @@ module.exports = (app) => {
 
     const newUser = { ...user };
     newUser.password = getPasswordHash(user.password);
-    return app.db('users').insert(newUser, ['id', 'email', 'name']);
+    return app.db('users').insert(newUser, ['id', 'name', 'email']);
   };
 
   return { findAll, save, findOne };
